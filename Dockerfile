@@ -1,5 +1,5 @@
-# Use an official node image as a parent image
-FROM node:14-alpine
+# First stage: build the application
+FROM node:20.14.0-alpine AS builder
 
 # Set the working directory
 WORKDIR /app
@@ -16,11 +16,17 @@ COPY . .
 # Build the application
 RUN npm run build
 
+# Second stage: serve the application
+FROM node:20.14.0-alpine
+
+# Set the working directory
+WORKDIR /app
+
 # Install serve to serve the build
 RUN npm install -g serve
 
-# Remove unnecessary files to reduce the image size
-RUN rm -rf node_modules src public
+# Copy the build files from the first stage
+COPY --from=builder /app/dist ./dist
 
 # Set the command to start the application
 CMD ["serve", "-s", "dist"]

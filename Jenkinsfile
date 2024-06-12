@@ -31,7 +31,7 @@ pipeline {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials-id') {
                         docker.image("${DOCKER_IMAGE}:latest").push() // Pushes the Docker image to DockerHub
                     }
-                    sh 'helm upgrade --install my-react-app ./helm-chart --set image.repository=${DOCKER_IMAGE},image.tag=latest' // Deploys using Helm
+                    sh 'helm upgrade --install jenkins-test ./jenkins-test --set image.repository=${DOCKER_IMAGE},image.tag=latest' // Deploys using Helm
                 }
             }
         }

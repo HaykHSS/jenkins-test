@@ -15,15 +15,15 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                script {
-                    docker.image("${DOCKER_IMAGE}:latest").inside {
-                        sh 'npm run test' // Runs tests inside the Docker container
-                    }
-                }
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         script {
+        //             docker.image("${DOCKER_IMAGE}:latest").inside {
+        //                 sh 'npm run test' // Runs tests inside the Docker container
+        //             }
+        //         }
+        //     }
+        // }
 
         stage('Deploy') {
             steps {

@@ -24,8 +24,5 @@ RUN npm install -g serve
 # Remove unnecessary files to reduce the image size
 RUN rm -rf node_modules src public
 
-# Copy the build files
-COPY dist ./dist
-
 # Set the command to start the application
 CMD ["serve", "-s", "dist"]
